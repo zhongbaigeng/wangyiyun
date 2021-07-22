@@ -1,0 +1,49 @@
+<view class="container">
+	<!-- 设置图片作为播放页面的背景图片 -->
+	<image class="img_big" src="{{song.artists[0].img1v1Url}}"></image>
+	<!-- 歌曲名称 -->
+	<view class="title">{{song.name}}</view>
+	<!-- 中间区域：封面、歌词 -->
+	<view class="middle">
+		<swiper class="middle-swiper">
+			<!-- 封面 -->
+			<swiper-item>
+				<view class="cd-image">
+					<image style="animation-play-state:{{state=='play'?'running':'paused'}}" src="{{song.album.picUrl}}"></image>
+				</view>
+			</swiper-item>
+			<!-- 歌词 -->
+			<swiper-item>
+				<!-- 使用可以滚动的scroll-view组件 -->
+				<scroll-view class="lyric-show" scroll-with-animation="true" scroll-y="true" scroll-top="{{marginTop}}">
+					<!-- 存放歌词的view标签 -->
+					<view class="lyric-content">
+						<block wx:for="{{lyricContent}}" wx:for-item="lyric" wx:for-index="index">
+							<text class="{{currentIndex==index?'currentLyric':''}}">{{lyric[1]}}</text>
+						</block>
+					</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+	<!-- 进度条 -->
+	<view class="progress">
+		<!-- 播放时间 -->
+		<view class="play_time">{{playTime}}</view>
+		<!-- 滑动选择器，进度条效果 -->
+		<slider bindchange="dragProgress" max="{{max}}" value="{{move}}" block-size="20" block-color="#c20c0c" activeColor="#c20c0c"></slider>
+		<!-- 结束时间 -->
+		<view class="end_time">{{endTime}}</view>
+	</view>
+	<!-- 控制条 -->
+	<view class="controls">
+		<image bindtap="changeMode" src="/images/{{mode=='single'?'single':'loop'}}.png"></image>
+		<image bindtap="preSong" src="/images/prev.png"></image>
+		<!-- 点击事件：控制暂停与播放 -->
+		<image bindtap="pauseOrPlay" src="/images/{{state=='play'?'pause':'play'}}.png"></image>
+		<image bindtap="nextSong" src="/images/next.png"></image>
+		<image src="/images/liked.png" class="{{isChecked?'right_click':''}}" bindtap="clickOn"></image>
+	</view>
+	<!-- 播放音频 -->
+	<audio bindended="changMusic" bindtimeupdate="changeTime" action="{{action}}" src="http://music.163.com/song/media/outer/url?id={{musicId}}.mp3"></audio>
+</view>

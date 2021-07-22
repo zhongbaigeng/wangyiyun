@@ -1,0 +1,13 @@
+<view class="mv">
+	<video src="{{mvAddress}}" autoplay="true"></video>
+</view>
+<!-- mv简介 -->
+<view class="introduce">
+	<view>
+		<!-- 简要描述 -->
+		<text class="briefDesc" wx:if="{{mvBriefDesc}}">{{mvBriefDesc}}\n\n</text>
+		<!-- 详细描述 -->
+		<text class="desc" wx:if="{{mvDesc}}">{{mvDesc}}</text>
+        <text class="desc" wx:else>暂无详细描述...</text>
+	</view>
+</view>

@@ -1,0 +1,37 @@
+<swiper class="swiperContainer" indicator-dots="true" indicator-color="white" indicator-active-color="red" autoplay="true" interval="3000" circular="true">
+	<block wx:for="{{imgUrls}}" wx:key="imgUrls" wx:for-item="img">
+		<swiper-item>
+			<image src="{{img}}"></image>
+		</swiper-item>
+	</block>
+</swiper>
+
+<!-- 绘制搜索框 -->
+<view class="search-area">
+	<!-- 输入框 -->
+	<view class='search-input'>
+		<input bindinput="getKeyWord"></input>
+	</view>
+	<view bindtap="doSearch" class="search-button">搜索</view>
+</view>
+
+<!-- 歌曲列表 -->
+<block wx:for="{{songs}}" wx:key="songs" wx:for-item="song" wx:for-index="i">
+	<view class='musicContainer'>
+		<!-- 左边专辑封面 -->
+		<view class="left">
+			<image src="{{song.artists[0].img1v1Url}}"></image>
+		</view>
+		<!-- 中间歌曲信息 -->
+		<view class="center">
+			<view class="songName">{{song.name}}</view>
+			<view class="singerName">{{song.artists[0].name}}-《{{song.album.name}}》</view>
+			<!-- mv图标 -->
+			<image class="mv" wx:if="{{song.mvid!=0}}" data-mvid="{{song.mvid}}" bindtap="gotoMv" src="/images/MV.png"></image>
+		</view>
+		<!-- 右边播放图标 -->
+		<view class="right">
+			<image bindtap="gotoPlay" src="/images/play.png" data-id="{{song.id}}"></image>
+		</view>
+	</view>
+</block>
